@@ -1,0 +1,7 @@
+name: Base-Pipeline
+proc_type: pipeline_process
+is_active: True
+is_sequential: True
+
+subprocesses:
+  - config_path: configs/processes/scraping.cfg.yaml

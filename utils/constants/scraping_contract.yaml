@@ -1,3 +1,2 @@
 pokemondb:
-  url: "https://pokemondb.net/pokedex/"
   module: "libs.scrapers.pokemondb.PokemonDB"
