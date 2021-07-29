@@ -1,0 +1,12 @@
+name: Image-Scraper
+proc_type: scraping
+is_active: True
+is_sequential: True
+
+config:
+  data_type: image
+  data_formats: ["tif", "png", "jpg"]
+  modules: ["pokemondb"]
+  out_dir: "data/images/raw/"
+  extraArgs:
+    reference: "data/dex.csv"
