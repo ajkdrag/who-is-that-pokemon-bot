@@ -1,5 +1,5 @@
 name: Base-Pipeline
-proc_type: pipeline_process
+proc_type: pipeline
 is_active: True
 is_sequential: True
 

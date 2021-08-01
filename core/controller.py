@@ -20,9 +20,10 @@ class Controller:
         logger = Logger(log_level=log_level, log_format=log_format)
         logger.setup()
 
-    def setup_config(self):
+    def setup_root(self):
         root_process_config_path = self.config.get(ROOT_PROCESS_CONFIG_PATH)
         self.root_process = cfg_parser.parse(root_process_config_path)
 
     def execute_root(self):
+        self.root_process.compile()
         self.root_process.execute()

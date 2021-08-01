@@ -1,2 +1,0 @@
-pokemondb:
-  module: "libs.scrapers.pokemondb.PokemonDB"
