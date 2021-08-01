@@ -10,8 +10,10 @@ def main():
     controller = Controller(launcher_config_path)
 
     controller.setup_logging()
+    controller.setup_root()
+    controller.execute_root()
 
-    LOG.info("Successfully set up prerequisites.")
+    LOG.info("Execution completed.")
 
 
 if __name__ == "__main__":
