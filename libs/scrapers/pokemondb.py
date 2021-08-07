@@ -18,5 +18,5 @@ class PokemonDB:
             for line in stream:
                 line = line.strip()
                 img_url = self.IMG_BASE_URL.format(pokemon=line)
-                download_file(img_url, join(self.config.get("out_dir"), line))
+                download_file(img_url, join(self.config.get("out_dir"), f"{line}.jpg"))
                 LOG.info("Successfully downloaded: %s", line)

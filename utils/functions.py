@@ -20,3 +20,8 @@ def download_file(url, out_path):
 
 def join(*args):
     return os.path.join(*args)
+
+
+def scrape_dir(dir):
+    for filename in os.listdir(dir):
+        yield filename
