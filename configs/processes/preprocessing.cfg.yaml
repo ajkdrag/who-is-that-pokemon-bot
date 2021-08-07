@@ -1,0 +1,10 @@
+name: Image-Preprocessor
+proc_type: preprocessing 
+is_active: True
+is_sequential: True
+
+config:
+  preprocessors: ["silhouette"]
+  extraArgs:
+    in_dir: "data/images/raw/"
+    out_dir: "data/images/preprocessed/"
