@@ -4,7 +4,9 @@ is_active: True
 is_sequential: True
 
 config:
-  preprocessors: ["silhouette"]
+  preprocessors: ["augmentation"]
   extraArgs:
+    num_aug_images: 25
     in_dir: "data/images/raw/"
-    out_dir: "data/images/preprocessed/"
+    processed_dir: "data/images/preprocessed/"
+    augmented_dir: "data/images/augmented_2/"

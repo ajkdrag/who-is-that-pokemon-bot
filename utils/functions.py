@@ -2,6 +2,7 @@ import importlib
 import requests
 import shutil
 import os
+from pathlib import Path, PurePath
 
 
 def get_class_based_on_class_type(class_type, class_mapping):
@@ -21,6 +22,13 @@ def download_file(url, out_path):
 def join(*args):
     return os.path.join(*args)
 
+def make_dirs(path):
+    Path(path).mkdir(parents=True, exist_ok=True)
+
+def iter_dir(dir):
+    for subdir, _, files in os.walk(dir):
+        for file in files:
+            yield PurePath(subdir, file) 
 
 def scrape_dir(dir):
     for filename in os.listdir(dir):
