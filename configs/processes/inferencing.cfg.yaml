@@ -1,0 +1,12 @@
+name: Inferencing-Client
+proc_type: inferencing
+is_active: True
+is_sequential: True
+
+config:
+  services: ["bot"]
+  extraArgs:
+    chromedriver: "/home/ajkdrag/Downloads/programs/chromedriver_linux64/chromedriver"
+    bot_url: "https://gearoid.me/pokemon/"
+    dex: "data/dex.csv"
+ 

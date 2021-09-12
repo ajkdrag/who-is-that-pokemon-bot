@@ -4,5 +4,6 @@ is_active: True
 is_sequential: True
 
 subprocesses:
-  #- config_path: configs/processes/scraping.cfg.yaml
-  - config_path: configs/processes/preprocessing.cfg.yaml
+  # - config_path: configs/processes/scraping.cfg.yaml
+  # - config_path: configs/processes/preprocessing.cfg.yaml
+  - config_path: configs/processes/inferencing.cfg.yaml
