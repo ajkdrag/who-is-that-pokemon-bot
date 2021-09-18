@@ -8,5 +8,7 @@ config:
   extraArgs:
     chromedriver: "/home/ajkdrag/Downloads/programs/chromedriver_linux64/chromedriver"
     bot_url: "https://gearoid.me/pokemon/"
+    serving_url: "http://localhost:8501/v1/models/Xception:predict"
+    max_inferences: 20
     dex: "data/dex.csv"
  

@@ -13,6 +13,8 @@ LOG = logging.getLogger(__name__)
 
 
 class Bot:
+    LABEL_RENAME_MAP = {"mr-mime": "mr. mime"}
+
     def __init__(self, config):
         self.config = config
 
@@ -20,7 +22,10 @@ class Bot:
         dex_file = self.config.get("dex")
         with open(dex_file) as stream:
             stream.readline()  # skip header
-            dex_data = stream.readlines()
+            dex_data = [
+                self.LABEL_RENAME_MAP.get(label.strip(), label.strip())
+                for label in stream.readlines()
+            ]
         return sorted(dex_data)
 
     def setup(self):
@@ -48,7 +53,7 @@ class Bot:
         give_ans = browser.find_element_by_id("giveAnswer")
         give_ans.click()
         time.sleep(4)
-        for _ in range(10):
+        for _ in range(self.config.get("max_inferences")):
             img_bbox = browser.find_element_by_id("shadowImage")
             ss = img_bbox.screenshot_as_png
             img = Image.open(BytesIO(ss))
@@ -63,10 +68,9 @@ class Bot:
             img_silhouette = cv2.cvtColor(img_silhouette, cv2.COLOR_GRAY2BGR)
             img_silhouette = np.expand_dims(img_silhouette / 255, axis=0)
             data = json.dumps({"instances": img_silhouette.tolist()})
-            url = "http://localhost:8501/v1/models/Xception:predict"
-            resp = requests.post(url, data=data)
+            resp = requests.post(self.config.get("serving_url"), data=data)
             predictions = resp.json()["predictions"][0]
-            best_prediction = self.dex_data[np.argmax(predictions)].strip()
+            best_prediction = self.dex_data[np.argmax(predictions)]
             ans_box = browser.find_element_by_id("pokemonGuess")
             ans_box.send_keys(best_prediction)
             time.sleep(4)

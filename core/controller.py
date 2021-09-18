@@ -2,7 +2,7 @@ import core.config_parser as cfg_parser
 from core.config_store import ConfigStore
 from utils.constants.globals import LOG_LEVEL, LOG_FORMAT, ROOT_PROCESS_CONFIG_PATH
 from utils.validators import launcher_config_validator
-from utils.logging import Logger
+from utils.logger import Logger
 
 
 class Controller:
