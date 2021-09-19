@@ -13,8 +13,8 @@ LOG = logging.getLogger(__name__)
 
 def get_prepared_img(img_path):
     img = Image.open(img_path).convert("RGB")
-    np_img = np.asarray(img.resize((128, 128)), dtype=np.uint8)
-    return np.expand_dims(np_img / 255.0, axis=0)
+    resized = np.array(img.resize((128, 128))).astype(np.uint8)
+    return np.expand_dims(resized / 255.0, axis=0)
 
 
 def write_warmup_records(

@@ -57,16 +57,16 @@ class Bot:
             img_bbox = browser.find_element_by_id("shadowImage")
             ss = img_bbox.screenshot_as_png
             img = Image.open(BytesIO(ss))
-            img = img.resize((128, 128))
+            np_img = np.array(img.resize((128, 128))).astype(np.uint8)
             silhouette = Silhouette(config=None)
             img_silhouette = 255 - silhouette.remove_background(
-                image=np.asarray(img, dtype=np.uint8),
+                image=np_img,
                 thresh=100,
                 base=255,
                 scale_factor=1,
             )
             img_silhouette = cv2.cvtColor(img_silhouette, cv2.COLOR_GRAY2BGR)
-            img_silhouette = np.expand_dims(img_silhouette / 255, axis=0)
+            img_silhouette = np.expand_dims(img_silhouette / 255.0, axis=0)
             data = json.dumps({"instances": img_silhouette.tolist()})
             resp = requests.post(self.config.get("serving_url"), data=data)
             predictions = resp.json()["predictions"][0]
