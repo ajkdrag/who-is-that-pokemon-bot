@@ -13,7 +13,12 @@ LOG = logging.getLogger(__name__)
 
 
 class Bot:
-    LABEL_RENAME_MAP = {"mr-mime": "mr. mime"}
+    LABEL_RENAME_MAP = {
+        "mr-mime": "mr. mime",
+        "farfetchd": "farfetch'd",
+        "nidoran-f": "nidoran",
+        "nidoran-m": "nidoran",
+    }
 
     def __init__(self, config):
         self.config = config
@@ -39,6 +44,8 @@ class Bot:
         self.options.add_argument("--start-maximized")
         self.options.add_argument("--disable-infobars")
         self.dex_data = self._get_labels()
+        self.model_nm = self.config.get("model_name")
+        self.url = f"http://localhost:8501/v1/models/{self.model_nm}:predict"
 
     def start(self):
         browser = webdriver.Chrome(
@@ -68,9 +75,25 @@ class Bot:
             img_silhouette = cv2.cvtColor(img_silhouette, cv2.COLOR_GRAY2BGR)
             img_silhouette = np.expand_dims(img_silhouette / 255.0, axis=0)
             data = json.dumps({"instances": img_silhouette.tolist()})
-            resp = requests.post(self.config.get("serving_url"), data=data)
+            resp = requests.post(self.url, data=data)
             predictions = resp.json()["predictions"][0]
-            best_prediction = self.dex_data[np.argmax(predictions)]
+            top_3_predictions = [
+                self.dex_data[pred]
+                for pred in sorted(
+                    range(len(predictions)),
+                    key=lambda idx: predictions[idx],
+                    reverse=True,
+                )[:3]
+            ]
             ans_box = browser.find_element_by_id("pokemonGuess")
-            ans_box.send_keys(best_prediction)
+            for pred in top_3_predictions:
+                ans_box.send_keys(pred)
+                if ans_box.get_attribute("class") == "correct disabled":
+                    break
+                else:
+                    ans_box.clear()
+                    LOG.info("Mispredicted with: %s Trying next best prediction", pred)
+            else:
+                LOG.info("Giving up...")
+                give_ans.click()
             time.sleep(4)

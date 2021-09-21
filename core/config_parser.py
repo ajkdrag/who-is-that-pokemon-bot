@@ -1,5 +1,5 @@
 import logging
-from libs.backend.file_io import read_all_yaml_data
+from utils.general.file_io import read_all_yaml_data
 from utils.validators.process_config_validator import validate
 from utils.functions import get_class_based_on_class_type
 from utils.constants.config_contract import PROC_TYPE_MAP

@@ -6,9 +6,10 @@ is_sequential: True
 config:
   services: ["bot"]
   extraArgs:
+    model_name: "Xception"
+    serving_image: "tensorflow/serving"
     chromedriver: "/home/ajkdrag/Downloads/programs/chromedriver_linux64/chromedriver"
     bot_url: "https://gearoid.me/pokemon/"
-    serving_url: "http://localhost:8501/v1/models/Xception:predict"
-    max_inferences: 20
+    max_inferences: 4 
     dex: "data/dex.csv"
  
