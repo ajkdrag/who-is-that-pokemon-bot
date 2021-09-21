@@ -13,5 +13,6 @@ PREPROCESSING_TYPE_MAP = {
 }
 
 SERVICE_TYPE_MAP = {
-    "bot": "libs.client.bot.Bot",
+    "server": "libs.services.inference_server.Server",
+    "bot": "libs.services.bot_client.Bot",
 }

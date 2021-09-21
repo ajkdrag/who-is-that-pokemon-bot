@@ -1,4 +1,4 @@
-from libs.backend.file_io import read_all_yaml_data
+from utils.general.file_io import read_all_yaml_data
 
 
 class ConfigStore:
