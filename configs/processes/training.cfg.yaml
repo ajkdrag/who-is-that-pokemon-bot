@@ -1,0 +1,12 @@
+name: Training-Client 
+proc_type: training
+is_active: True
+is_sequential: True
+
+config:
+  scripts: ["train"]
+  extraArgs:
+    hyps: "configs/hyps.yaml"
+    input_dir: "data/images/augmented"
+    model_dir: "archives"
+     

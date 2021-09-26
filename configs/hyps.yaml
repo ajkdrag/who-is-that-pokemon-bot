@@ -1,0 +1,4 @@
+epochs: 2
+width: 128
+height: 128
+batch-size: 4

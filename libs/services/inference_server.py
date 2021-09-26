@@ -1,5 +1,6 @@
 import docker
 import logging
+import time
 from pathlib import Path
 
 LOG = logging.getLogger(__name__)
@@ -12,6 +13,7 @@ class Server:
     def setup(self):
         self.model_nm = self.config.get("model_name")
         self.model_dir = Path("models").absolute()
+        self.sleep_time = 10
         self.url = f"http://localhost:8501/v1/models/{self.model_nm}:predict"
         self.client = docker.from_env()
 
@@ -24,4 +26,5 @@ class Server:
             volumes={self.model_dir: {"bind": "/models", "mode": "ro"}},
             detach=True,
         )
-        LOG.info(container.logs())
+        LOG.info("Started container. Sleeping for %s secs", self.sleep_time)
+        time.sleep(self.sleep_time)
