@@ -10,7 +10,7 @@ config:
     serving_image: "tensorflow/serving"
     chromedriver: "/home/ajkdrag/Downloads/programs/chromedriver_linux64/chromedriver"
     bot_url: "https://gearoid.me/pokemon/"
-    max_inferences: 4 
+    max_inferences: 8
     num_attempts: 4
     dex: "data/dex.csv"
     export: "export"

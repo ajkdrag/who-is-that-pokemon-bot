@@ -45,7 +45,6 @@ python launcher.py --config configs/launcher.cfg.yaml
 ```
 This launches a new chrome window and opens [Who's that pokemon](https://gearoid.me/pokemon/), followed by guessing (predicting :sparkles: ) the pokemons. At the end a stats file is generated under the **export** dir.
 
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
