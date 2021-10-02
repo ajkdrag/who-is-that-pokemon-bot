@@ -1,4 +1,5 @@
 # Who's-That-Pokemon-Bot
+<img src="extras/bot.gif" width=256px height=200px>
 
 Bot for the online game: [Who's that pokemon](https://gearoid.me/pokemon/)
 
@@ -12,7 +13,6 @@ Once Docker is setup, pull the latest **Tensorflow serving** docker image.
 docker pull tensorflow/serving
 ```
 Download Chromedriver for your chrome/chromium version from: [ChromeDriver](https://chromedriver.chromium.org/downloads)
-
 
 ## Usage
 
