@@ -82,7 +82,10 @@ class Train:
         loss = history.history["loss"]
         val_loss = history.history["val_loss"]
 
-        epochs_range = range(self.early_stopping.stopped_epoch)
+        epochs_ran = self.early_stopping.stopped_epoch
+        if epochs_ran == 0:
+            epochs_ran = self.hyps.get("epochs")
+        epochs_range = range(epochs_ran)
 
         plt.figure(figsize=(20, 8))
         plt.subplot(1, 2, 1)
