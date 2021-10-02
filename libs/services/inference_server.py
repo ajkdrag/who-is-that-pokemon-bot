@@ -19,7 +19,7 @@ class Server:
 
     def start(self):
         LOG.info("Starting container...")
-        container = self.client.containers.run(
+        self.client.containers.run(
             self.config.get("serving_image"),
             environment={"MODEL_NAME": self.model_nm},
             ports={"8501/tcp": 8501},

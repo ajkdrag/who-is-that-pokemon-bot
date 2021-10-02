@@ -11,8 +11,9 @@ def main():
 
     controller.setup_logging()
     controller.setup_root()
-    controller.execute_root()
 
+    LOG.info("Execution started.")
+    controller.execute_root()
     LOG.info("Execution completed.")
 
 
