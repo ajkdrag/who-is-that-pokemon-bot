@@ -52,6 +52,32 @@ class Bot:
         self.k = self.config.get("num_attempts", 3)
         self.stat_rows = []
 
+    def _dump_stats(self, browser):
+        streak = browser.find_element_by_class_name("currentCountText").get_attribute(
+            "textContent"
+        )
+        avg_time = browser.find_element_by_class_name("averageTimeText").get_attribute(
+            "textContent"
+        )
+
+        stats = pd.DataFrame(
+            self.stat_rows,
+            columns=["Predictions", "Actual", "Num-retries", "Elapsed(ms)"],
+        )
+        stats_filename = join(
+            self.config.get("export"), f"stats_{datetime.now():%Y-%m-%d_%H-%M-%S}.csv"
+        )
+        stats.to_csv(
+            stats_filename,
+            index_label="Index",
+        )
+        LOG.info(
+            "Streak: %s\nAvg. Time: %s\nStats saved to: %s\n",
+            streak,
+            avg_time,
+            stats_filename,
+        )
+
     def start(self):
         browser = webdriver.Chrome(
             self.config.get("chromedriver"), options=self.options
@@ -114,28 +140,5 @@ class Bot:
             self.stat_rows.append(row)
             time.sleep(4)
 
-        streak = browser.find_element_by_class_name("currentCountText").get_attribute(
-            "textContent"
-        )
-        avg_time = browser.find_element_by_class_name("averageTimeText").get_attribute(
-            "textContent"
-        )
-
-        stats = pd.DataFrame(
-            self.stat_rows,
-            columns=["Predictions", "Actual", "Num-retries", "Elapsed(ms)"],
-        )
-        stats_filename = join(
-            self.config.get("export"), f"stats_{datetime.now():%Y-%m-%d_%H-%M-%S}.csv"
-        )
-        stats.to_csv(
-            stats_filename,
-            index_label="Index",
-        )
-        LOG.info(
-            "Streak: %s\nAvg. Time: %s\nStats saved to: %s\n",
-            streak,
-            avg_time,
-            stats_filename,
-        )
+        self._dump_stats(browser)
         browser.quit()

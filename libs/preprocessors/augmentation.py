@@ -1,5 +1,4 @@
 import logging
-import tensorflow as tf
 from pathlib import Path
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
